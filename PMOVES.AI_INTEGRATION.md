@@ -1,71 +1,39 @@
-# PMOVES.AI Integration Guide for E2B MCP Server
+# PMOVES.AI Integration Dossier
 
-## Integration Overview
+_Last updated: 2026-04-04_
 
-E2B MCP Server provides sandboxed code execution capabilities via the Model Context Protocol. It allows Claude Desktop, Claude Code, and PMOVES.AI agents to execute Python and JavaScript code in isolated E2B sandbox environments with full library and system access.
+## Module
+- Name: pmoves-e2b-mcp-server
+- Path: pmoves-e2b-mcp-server
 
-## Service Details
+## Purpose in PMOVES.AI
+- MCP server bridge for E2B sandbox integration with agent tooling.
 
-- **Name:** E2B MCP Server
-- **Slug:** e2b-mcp-server
-- **Tier:** worker
-- **Port:** None (stdio MCP transport)
-- **Health Check:** N/A (process-level, not HTTP)
-- **NATS Enabled:** False
-- **GPU Enabled:** False
+## PMOVES Overlay Surface
+- pmoves-integrations/ overlay path (if used): _TBD_
+- Compose/profile wiring: _TBD_
+- Env/secret inputs: _TBD_
+- Auth/JWT requirements: _TBD_
 
-## Integration Points
+## Contracts and Topics
+- NATS subjects (if any): _TBD_
+- Supabase schema/tables touched (if any): _TBD_
+- MCP endpoints/skills (if any): _TBD_
 
-### MCP Tool Bridge
-- Transport: stdio (subprocess invocation)
-- Provides code interpreter capabilities to MCP-compatible clients
-- Available in JavaScript and Python editions
+## Boot Order and Health
+- Bring-up dependency order: _TBD_
+- Health endpoints: _TBD_
+- Smoke targets: _TBD_
 
-### Agent Integration
-```
-Claude Code / Agent Zero → MCP stdio → E2B Sandbox
-                                      → Isolated Code Execution
-                                      → Result Return
-```
+## Hardening Notes
+- Image pinning / provenance: _TBD_
+- Secrets source (*_FILE / vault / GH env): _TBD_
+- Network/security policy constraints: _TBD_
 
-### BoTZ Integration
-- Also available via BoTZ E2B feature module at `features/e2b/`
-- SSE transport at `http://localhost:7071/sse` (when running via BoTZ)
+## Source Documentation
+- Upstream docs entrypoint: README.md
+- PMOVES docs index reference: pmoves/docs/SUBMODULE_DOCS_DOSSIER.md
 
-## Next Steps
-
-### 1. Customize Environment Variables
-
-- `E2B_API_KEY` - Required API key for E2B sandbox access
-
-### 2. Configure MCP Client
-
-For Claude Desktop integration:
-```json
-{
-  "mcpServers": {
-    "e2b": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/e2b-mcp-server"]
-    }
-  }
-}
-```
-
-### 3. Test Integration
-
-```bash
-# Verify MCP server starts
-npx -y @anthropic/e2b-mcp-server --help
-
-# Verify E2B API key
-echo $E2B_API_KEY
-```
-
-## Files Created
-
-- `PMOVES.AI_INTEGRATION.md` - This integration guide
-
-## Support
-
-For questions or issues, see the PMOVES.AI documentation.
+## Owner / Audit
+- Owning lane: _TBD_
+- Last integration audit run: 2026-04-04
